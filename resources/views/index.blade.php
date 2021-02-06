@@ -2,13 +2,10 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/>
+        <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}" >
 
         <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
     </head>
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>

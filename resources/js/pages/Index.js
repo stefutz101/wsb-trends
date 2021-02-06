@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 import { AppBar, Toolbar, Typography, Button, IconButton, Container, Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { getMuiTheme, Colors, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 
 // components
@@ -13,15 +13,29 @@ import 'fontsource-roboto';
 
 import Chart from 'chart.js';
 
+const muiTheme = getMuiTheme({
+    palette: {
+        textColor: Colors.blue,
+        primary1Color: Colors.white,
+        primary2Color: Colors.indigo700,
+        accent1Color: Colors.redA200,
+        pickerHeaderColor: Colors.darkBlack,
+        alternateTextColor: Colors.redA200
+    },
+    appBar: {
+        height: 60,
+    },
+});
+
 const useStyles = makeStyles((theme) => ({
     root: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
     menuButton: {
-      marginRight: theme.spacing(2),
+        marginRight: theme.spacing(2),
     },
     page: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
     card: {
         minWidth: 275,
@@ -96,22 +110,19 @@ function Index() {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
                     <Typography variant="h6" className={classes.page}>
-                        News
+                        WSB Trends
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
-            <Container maxWidth="md">
+            <Container fixed maxWidth="md">
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
                         <CardComponent title={'Top 10 most mentioned picks:'} canvas_id={'top10'} />
                     </Grid>
                     <Grid item xs={6}>
-                        <CardComponent title={'test2'} canvas_id={'id2'} />
+                        <CardComponent title={'Sentiment Analysis'} canvas_id={'analysis'} />
                     </Grid>
                 </Grid>
             </Container>
