@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { AppBar, Toolbar, Typography, Button, IconButton, Container, Card, CardContent, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Button, IconButton, Container, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 
+// components
+import CardComponent from '../components/CardComponent';
+
+// fonts
 import 'fontsource-roboto';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,8 +18,11 @@ const useStyles = makeStyles((theme) => ({
     menuButton: {
       marginRight: theme.spacing(2),
     },
-    title: {
+    page: {
       flexGrow: 1,
+    },
+    card: {
+        minWidth: 275,
     },
 }));
 
@@ -29,31 +36,21 @@ function Index() {
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" className={classes.title}>
+                    <Typography variant="h6" className={classes.page}>
                         News
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
-            <Container maxWidth="sm">
-                <Card className={classes.root}>
-                    <CardContent>
-                        <Typography className={classes.title} color="textSecondary" gutterBottom>
-                            Word of the Day
-                        </Typography>
-                        <Typography variant="h5" component="h2">
-                            be{bull}nev{bull}o{bull}lent
-                        </Typography>
-                        <Typography className={classes.pos} color="textSecondary">
-                            adjective
-                        </Typography>
-                        <Typography variant="body2" component="p">
-                            well meaning and kindly.
-                            <br />
-                            {'"a benevolent smile"'}
-                        </Typography>
-                    </CardContent>
-                </Card>
+            <Container maxWidth="md">
+                <Grid container spacing={3}>
+                    <Grid item xs={6}>
+                        <CardComponent title={'test1'} canvas_id={'id1'} />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <CardComponent title={'test2'} canvas_id={'id2'} />
+                    </Grid>
+                </Grid>
             </Container>
         </div>
     );
