@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { AppBar, Toolbar, Typography, Button, IconButton, Container } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Button, IconButton, Container, Card, CardContent, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
+
+import 'fontsource-roboto';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,7 +36,24 @@ function Index() {
                 </Toolbar>
             </AppBar>
             <Container maxWidth="sm">
-
+                <Card className={classes.root}>
+                    <CardContent>
+                        <Typography className={classes.title} color="textSecondary" gutterBottom>
+                            Word of the Day
+                        </Typography>
+                        <Typography variant="h5" component="h2">
+                            be{bull}nev{bull}o{bull}lent
+                        </Typography>
+                        <Typography className={classes.pos} color="textSecondary">
+                            adjective
+                        </Typography>
+                        <Typography variant="body2" component="p">
+                            well meaning and kindly.
+                            <br />
+                            {'"a benevolent smile"'}
+                        </Typography>
+                    </CardContent>
+                </Card>
             </Container>
         </div>
     );

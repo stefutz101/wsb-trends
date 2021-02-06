@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import squarify
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import nltk
+import config
+import mysql.connector
 nltk.download('vader_lexicon')
 
 start_time = time.time()
@@ -14,6 +16,17 @@ reddit = praw.Reddit(
     client_id="qwGA2WkSA9pRyQ",
     client_secret="joYl7_cCOwE2ezzmHIt55wOuKCYZCQ"
 )
+
+cnx = mysql.connector.connect(user=config.DB_USER, password=config.DB_PASS,
+                              host=config.DB_HOST,
+                              database=config.DB_NAME)
+cursor = cnx.cursor()
+
+# cleaning database
+cursor.execute("""
+        DELETE FROM results
+    """)
+cnx.commit()
 
 '''############################################################################'''
 # set the program parameters
@@ -27,8 +40,8 @@ upvoteRatio = 0.70         # upvote ratio for post to be considered, 0.70 = 70%
 ups = 20       # define # of upvotes, post is considered if upvotes exceed this #
 limit = 10      # define the limit, comments 'replace more' limit
 upvotes = 2     # define # of upvotes, comment is considered if upvotes exceed this #
-picks = 10     # define # of picks here, prints as "Top ## picks are:"
-picks_ayz = 5   # define # of picks for sentiment analysis
+picks = 2     # define # of picks here, prints as "Top ## picks are:"
+picks_ayz = 2   # define # of picks for sentiment analysis
 '''############################################################################'''
 
 posts, count, c_analyzed, tickers, titles, a_comments = 0, 0, 0, {}, [], {}
@@ -44,8 +57,6 @@ for sub in subs:
         
         try: author = submission.author.name
         except: pass
-        
-        print(author)
         
         # checking: post upvote ratio # of upvotes, post flair, and author 
         if submission.upvote_ratio >= upvoteRatio and submission.ups > ups and (flair in post_flairs or flair is None) and author not in ignoreAuthP:   
@@ -92,17 +103,28 @@ top_picks = list(symbols.keys())[0:picks]
 time = (time.time() - start_time)
 
 # print top picks
-print("It took {t:.2f} seconds to analyze {c} comments in {p} posts in {s} subreddits.\n".format(t=time, c=c_analyzed, p=posts, s=len(subs)))
-print("Posts analyzed saved in titles")
+# print("It took {t:.2f} seconds to analyze {c} comments in {p} posts in {s} subreddits.\n".format(t=time, c=c_analyzed, p=posts, s=len(subs)))
+# print("Posts analyzed saved in titles")
 #for i in titles: print(i)  # prints the title of the posts analyzed
 
-print(f"\n{picks} most mentioned picks: ")
-times = []
-top = []
+# print(f"\n{picks} most mentioned picks: ")
+
+# times = []
+# top = []
 for i in top_picks:
-    print(f"{i}: {symbols[i]}")
-    times.append(symbols[i])
-    top.append(f"{i}: {symbols[i]}")
+
+    cursor.execute("""
+        INSERT INTO results (stock, mentions)
+        VALUES (%s, %s)
+    """, (i, symbols[i]))
+
+    cnx.commit()
+
+
+    # print(f"{i}: {symbols[i]}")
+
+    # times.append(symbols[i])
+    # top.append(f"{i}: {symbols[i]}")
    
     
 # Applying Sentiment Analysis
@@ -131,23 +153,25 @@ for symbol in picks_sentiment:
     for key in score:
         scores[symbol][key] = scores[symbol][key] / symbols[symbol]
         scores[symbol][key]  = "{pol:.3f}".format(pol=scores[symbol][key])
+
+        print(scores[symbol][key])
  
 # printing sentiment analysis 
-print(f"\nSentiment analysis of top {picks_ayz} picks:")
-df = pd.DataFrame(scores)
-df.index = ['Bearish', 'Neutral', 'Bullish', 'Total/Compound']
-df = df.T
-print(df)
+# print(f"\nSentiment analysis of top {picks_ayz} picks:")
+# df = pd.DataFrame(scores)
+# df.index = ['Bearish', 'Neutral', 'Bullish', 'Total/Compound']
+# df = df.T
+# print(df)
 
 # Date Visualization
 # most mentioned picks    
-squarify.plot(sizes=times, label=top, alpha=.7 )
-plt.axis('off')
-plt.title(f"{picks} most mentioned picks")
-plt.show()
+# squarify.plot(sizes=times, label=top, alpha=.7 )
+# plt.axis('off')
+# plt.title(f"{picks} most mentioned picks")
+# plt.show()
 
 # Sentiment analysis
-df = df.astype(float)
-colors = ['red', 'springgreen', 'forestgreen', 'coral']
-df.plot(kind = 'bar', color=colors, title=f"Sentiment analysis of top {picks_ayz} picks:")
-plt.show()
+# df = df.astype(float)
+# colors = ['red', 'springgreen', 'forestgreen', 'coral']
+# df.plot(kind = 'bar', color=colors, title=f"Sentiment analysis of top {picks_ayz} picks:")
+# plt.show()

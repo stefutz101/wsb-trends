@@ -27,6 +27,7 @@
     "dependencies": {
         "@material-ui/core": "^4.11.3",
         "@material-ui/icons": "^4.11.2",
-        "chart.js": "^2.9.4"
+        "chart.js": "^2.9.4",
+        "fontsource-roboto": "^4.0.0"
     }
 }
