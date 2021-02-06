@@ -30,8 +30,10 @@ cnx.commit()
 
 '''############################################################################'''
 # set the program parameters
-subs = ['wallstreetbets', 'stocks', 'investing', 'stockmarket']     # sub-reddit to search
-post_flairs = {'Daily Discussion', 'Weekend Discussion', 'Discussion'}    # posts flairs to search || None flair is automatically considered
+subs = {'wallstreetbets'}
+#subs = ['wallstreetbets', 'stocks', 'investing', 'stockmarket']     # sub-reddit to search
+#post_flairs = {'Daily Discussion', 'Weekend Discussion', 'Discussion'}    # posts flairs to search || None flair is automatically considered
+post_flairs = {'Daily Discussion'} 
 goodAuth = {'AutoModerator'}   # authors whom comments are allowed more than once
 uniqueCmt = True                # allow one comment per author per symbol
 ignoreAuthP = {'example'}       # authors to ignore for posts 
@@ -129,7 +131,6 @@ for i in top_picks:
     
 # Applying Sentiment Analysis
 scores, s = {}, {}
- 
 vader = SentimentIntensityAnalyzer()
 # adding custom words from data.py 
 vader.lexicon.update(new_words)
@@ -154,14 +155,21 @@ for symbol in picks_sentiment:
         scores[symbol][key] = scores[symbol][key] / symbols[symbol]
         scores[symbol][key]  = "{pol:.3f}".format(pol=scores[symbol][key])
 
-        print(scores[symbol][key])
- 
-# printing sentiment analysis 
-# print(f"\nSentiment analysis of top {picks_ayz} picks:")
-# df = pd.DataFrame(scores)
-# df.index = ['Bearish', 'Neutral', 'Bullish', 'Total/Compound']
-# df = df.T
-# print(df)
+
+#Print values from scores
+for stock, value in scores.items():
+    print(stock, '--')
+
+    for key, score in value.items():
+        print(key, ' : ', score)
+
+
+#printing sentiment analysis 
+#print(f"\nSentiment analysis of top {picks_ayz} picks:")
+#df = pd.DataFrame(scores)
+#df.index = ['Bearish', 'Neutral', 'Bullish', 'Total/Compound']
+#df = df.T
+#print(df)
 
 # Date Visualization
 # most mentioned picks    
