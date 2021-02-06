@@ -25,7 +25,7 @@ export default function CardComponent(props) {
                     {props.title}
                 </Typography>
 
-                <canvas id={props.canvas_id} width="100%" height="100%"></canvas>
+                <canvas id={props.canvas_id}></canvas>
             </CardContent>
         </Card>
     );

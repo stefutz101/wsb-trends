@@ -30,7 +30,7 @@ cnx.commit()
 
 '''############################################################################'''
 # set the program parameters
-subs = {'wallstreetbets'}
+subs = {'wallstreetbets', 'stocks'}
 #subs = ['wallstreetbets', 'stocks', 'investing', 'stockmarket']     # sub-reddit to search
 #post_flairs = {'Daily Discussion', 'Weekend Discussion', 'Discussion'}    # posts flairs to search || None flair is automatically considered
 post_flairs = {'Daily Discussion'} 
@@ -42,8 +42,8 @@ upvoteRatio = 0.70         # upvote ratio for post to be considered, 0.70 = 70%
 ups = 20       # define # of upvotes, post is considered if upvotes exceed this #
 limit = 10      # define the limit, comments 'replace more' limit
 upvotes = 2     # define # of upvotes, comment is considered if upvotes exceed this #
-picks = 2     # define # of picks here, prints as "Top ## picks are:"
-picks_ayz = 2   # define # of picks for sentiment analysis
+picks = 10     # define # of picks here, prints as "Top ## picks are:"
+picks_ayz = 10   # define # of picks for sentiment analysis
 '''############################################################################'''
 
 posts, count, c_analyzed, tickers, titles, a_comments = 0, 0, 0, {}, [], {}
@@ -160,9 +160,17 @@ for symbol in picks_sentiment:
 for stock, value in scores.items():
     print(stock, '--')
 
+    cursor.execute("""
+        UPDATE results SET bearish=%s, neutral=%s, bullish=%s, total=%s WHERE stock=%s
+    """, (value['neg'], value['neu'], value['pos'], value['compound'], stock))
+
+    cnx.commit()
+
     for key, score in value.items():
         print(key, ' : ', score)
 
+cursor.close()
+cnx.close()
 
 #printing sentiment analysis 
 #print(f"\nSentiment analysis of top {picks_ayz} picks:")
