@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-import { AppBar, Toolbar, Typography, Button, IconButton, Container, Grid } from '@material-ui/core';
-import { getMuiTheme, Colors, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Toolbar, Typography, Button, Container, Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 // components
 import CardComponent from '../components/CardComponent';
@@ -12,20 +11,6 @@ import CardComponent from '../components/CardComponent';
 import 'fontsource-roboto';
 
 import Chart from 'chart.js';
-
-const muiTheme = getMuiTheme({
-    palette: {
-        textColor: Colors.blue,
-        primary1Color: Colors.white,
-        primary2Color: Colors.indigo700,
-        accent1Color: Colors.redA200,
-        pickerHeaderColor: Colors.darkBlack,
-        alternateTextColor: Colors.redA200
-    },
-    appBar: {
-        height: 60,
-    },
-});
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,66 +27,132 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function random_rgba() {
+    var o = Math.round, r = Math.random, s = 255;
+    return [o(r()*s), o(r()*s), o(r()*s)];
+}
+
 function Index() {
     const classes = useStyles();
 
     useEffect(() => {
-        fetch('https://7f37ec3da7d1.ngrok.io/api/results')
+        fetch('https://81dc0c006bfb.ngrok.io/api/results')
             .then(res => res.json())
             .then(
                 (result) => {
-                    var stocks = [];
-                    var mentions = [];
-                    var top10 = [];
+                    var top10, analysis, options, sentiments;
+                    top10 = {
+                        labels: ['Stocks'],
+                        datasets: [],
+                    }
+                    analysis = {
+                        labels: [],
+                        datasets: [],
+                    };
+
+                    sentiments = {
+                        bearish: {
+                            key: 'Bearish',
+                            values: [],
+                            color: [255, 99, 132]
+                        },
+                        neutral: {
+                            key: 'Neutral',
+                            values: [],
+                            color: [255, 206, 86]
+                        },
+                        bullish: {
+                            key: 'Bullish',
+                            values: [],
+                            color: [75, 192, 192]
+                        },
+                        total: {
+                            key: 'Total',
+                            values: [],
+                            color: [153, 102, 255]
+                        }
+                    };
+
+                    options = {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    };
 
                     result.forEach(el => {
-                        //stocks.push(el.stock);
-                        //mentions.push(el.mentions);
-
-                        top10.push({
+                        var [r, g, b] = random_rgba();
+                        // 1st chart
+                        top10.datasets.push({
                             label: el.stock,
-                            data: [
-                                el.bearish,
-                                el.neutral,
-                                el.bullish,
-                                el.total
-                            ],
+                            data: [el.mentions],
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(255, 99, 132, 0.2)',
+                                `rgba(${r}, ${g}, ${b}, 0.2)`
                             ],
                             borderColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(255, 99, 132, 0.2)',
+                                `rgba(${r}, ${g}, ${b}, 1)`
                             ],
                             borderWidth: 1
                         });
+
+                        // 2nd chart
+                        analysis.labels.push(el.stock);
+                        sentiments.bearish.values.push(el.bearish);
+                        sentiments.neutral.values.push(el.neutral);
+                        sentiments.bullish.values.push(el.bullish);
+                        sentiments.total.values.push(el.total);
                     });
-                    console.log(stocks);
+
+                    for (const [key, value] of Object.entries(sentiments)) {
+                        var [r, g, b] = value.color;
+
+                        analysis.datasets.push({
+                            label: value.key,
+                            data: value.values,
+                            backgroundColor: [
+                                `rgba(${r}, ${g}, ${b}, 0.2)`,
+                                `rgba(${r}, ${g}, ${b}, 0.2)`,
+                                `rgba(${r}, ${g}, ${b}, 0.2)`,
+                                `rgba(${r}, ${g}, ${b}, 0.2)`,
+                                `rgba(${r}, ${g}, ${b}, 0.2)`,
+                                `rgba(${r}, ${g}, ${b}, 0.2)`,
+                                `rgba(${r}, ${g}, ${b}, 0.2)`,
+                                `rgba(${r}, ${g}, ${b}, 0.2)`,
+                                `rgba(${r}, ${g}, ${b}, 0.2)`,
+                                `rgba(${r}, ${g}, ${b}, 0.2)`
+                            ],
+                            borderColor: [
+                                `rgba(${r}, ${g}, ${b}, 1)`,
+                                `rgba(${r}, ${g}, ${b}, 1)`,
+                                `rgba(${r}, ${g}, ${b}, 1)`,
+                                `rgba(${r}, ${g}, ${b}, 1)`,
+                                `rgba(${r}, ${g}, ${b}, 1)`,
+                                `rgba(${r}, ${g}, ${b}, 1)`,
+                                `rgba(${r}, ${g}, ${b}, 1)`,
+                                `rgba(${r}, ${g}, ${b}, 1)`,
+                                `rgba(${r}, ${g}, ${b}, 1)`,
+                                `rgba(${r}, ${g}, ${b}, 1)`
+                            ],
+                            borderWidth: 1
+                        });
+                    }
                     
                     new Chart('top10', {
                         type: 'bar',
-                        data: [{
-                            labels: stocks,
-                            datasets: top10
-                        }],
-                        options: {
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                            }
-                        }
+                        data: top10,
+                        options: options
+                    });
+                    new Chart('analysis', {
+                        type: 'bar',
+                        data: analysis,
+                        options: options
                     });
                 },
                 (error) => {
-                    console.log(error);     
+                    alert(error);     
                 }
             )
     }, [])
@@ -116,7 +167,7 @@ function Index() {
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
-            <Container fixed maxWidth="md">
+            <Container fixed maxWidth="lg">
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
                         <CardComponent title={'Top 10 most mentioned picks:'} canvas_id={'top10'} />

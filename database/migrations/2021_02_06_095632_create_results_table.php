@@ -17,10 +17,10 @@ class CreateResultsTable extends Migration
             $table->id();
             $table->char('stock', 10);
             $table->integer('mentions');
-            $table->float('bearish', 4, 3)->nullable();
-            $table->float('neutral', 4, 3)->nullable();
-            $table->float('bullish', 4, 3)->nullable();
-            $table->float('total', 4, 3)->nullable();
+            $table->double('bearish', 4, 3)->default(0);
+            $table->double('neutral', 4, 3)->default(0);
+            $table->double('bullish', 4, 3)->default(0);
+            $table->double('total', 4, 3)->default(0);
             $table->timestamps();
         });
     }
