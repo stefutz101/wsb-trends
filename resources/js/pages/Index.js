@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 import { AppBar, Toolbar, Typography, Button, Container, Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
+import { blue, lime } from '@material-ui/core/colors';
 
 // components
 import CardComponent from '../components/CardComponent';
@@ -12,19 +13,33 @@ import 'fontsource-roboto';
 
 import Chart from 'chart.js';
 
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: blue[500],
+        },
+        secondary: {
+            main: lime[500],
+        },
+    },
+});
+
 const useStyles = makeStyles((theme) => ({
     menu: {
-        flexGrow: 1,
+        flexGrow: 1
+    },
+    loginButton: {
+        marginRight: theme.spacing(1)
     },
     pageTitle: {
-        paddingBottom: theme.spacing(2),
+        paddingBottom: theme.spacing(2)
     },
     container: {
         paddingTop: theme.spacing(5),
-        paddingBottom: theme.spacing(5),
+        paddingBottom: theme.spacing(5)
     },
     pageFooter: {
-        paddingTop: theme.spacing(2),
+        paddingTop: theme.spacing(2)
     }
 }));
 
@@ -37,7 +52,7 @@ function Index() {
     const classes = useStyles();
 
     useEffect(() => {
-        fetch('https://81dc0c006bfb.ngrok.io/api/results')
+        fetch(API_URL)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -165,8 +180,12 @@ function Index() {
                     <Typography variant="h6" className={classes.menu}>
                         WSB Trends
                     </Typography>
-                    <Button color="inherit">Login</Button>
-                    <Button color="inherit">Register</Button>
+                    <Button color="primary" variant="contained" href="/login" className={classes.loginButton}>
+                        Login
+                    </Button>
+                    <Button color="secondary" variant="contained" href="/register">
+                        Register
+                    </Button>
                 </Toolbar>
             </AppBar>
             <Container maxWidth="xl" className={classes.container}>
@@ -190,7 +209,7 @@ function Index() {
                             </Grid>
                         </Grid>
 
-                        <Typography variant="h6" align="center" className={classes.pageFooter}>
+                        <Typography variant="p" className={classes.pageFooter}>
                             wsbtrends.com © 2021. v1.0.0. This site is not affiliated with Amazon.com Inc., Twitch Interactive, Twitch.tv or any of their partners. Stock trading, Forex trading, or any other form of securities trading is extremely high risk.
                             The information provided anywhere on this website and accompanying material is for informational purposes only. It should not be considered legal or financial advice.
                         </Typography>

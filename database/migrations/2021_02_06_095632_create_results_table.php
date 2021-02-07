@@ -17,6 +17,7 @@ class CreateResultsTable extends Migration
             $table->id();
             $table->char('stock', 10);
             $table->integer('mentions');
+            $table->char('source', 100);
             $table->double('bearish', 4, 3)->default(0);
             $table->double('neutral', 4, 3)->default(0);
             $table->double('bullish', 4, 3)->default(0);

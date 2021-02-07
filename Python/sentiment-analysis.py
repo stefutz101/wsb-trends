@@ -10,7 +10,6 @@ import config
 import mysql.connector
 nltk.download('vader_lexicon')
 
-start_time = time.time()
 reddit = praw.Reddit(
     user_agent="Comment Extraction",
     client_id="qwGA2WkSA9pRyQ",
@@ -49,6 +48,7 @@ picks_ayz = 10   # define # of picks for sentiment analysis
 posts, count, c_analyzed, tickers, titles, a_comments = 0, 0, 0, {}, [], {}
 cmt_auth = {}
 
+# start_time = time.time()
 for sub in subs:
     subreddit = reddit.subreddit(sub)
     hot_python = subreddit.hot()    # sorting posts by hot
@@ -102,9 +102,9 @@ for sub in subs:
 # sorts the dictionary
 symbols = dict(sorted(tickers.items(), key=lambda item: item[1], reverse = True))
 top_picks = list(symbols.keys())[0:picks]
-time = (time.time() - start_time)
 
 # print top picks
+# time = (time.time() - start_time)
 # print("It took {t:.2f} seconds to analyze {c} comments in {p} posts in {s} subreddits.\n".format(t=time, c=c_analyzed, p=posts, s=len(subs)))
 # print("Posts analyzed saved in titles")
 #for i in titles: print(i)  # prints the title of the posts analyzed
