@@ -8855,8 +8855,11 @@ var useStyles = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__.default
       backgroundColor: _material_ui_core_colors__WEBPACK_IMPORTED_MODULE_10__.default[50],
       height: 'calc(100vh - 64px)'
     },
-    pageFooter: {
-      paddingTop: theme.spacing(2)
+    footer: {
+      position: "fixed",
+      bottom: 0,
+      textAlign: "center",
+      padding: 24
     }
   };
 });
@@ -9034,16 +9037,14 @@ function Index() {
           item: true,
           xs: 12,
           lg: 2
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__.default, {
-          item: true,
-          xs: 12,
-          lg: 12,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__.default, {
-            variant: "body2",
-            align: "center",
-            children: "wsbtrends.com \xA9 2021. v1.0.0. This site is not affiliated with Amazon.com Inc., Twitch Interactive, Twitch.tv or any of their partners. Stock trading, Forex trading, or any other form of securities trading is extremely high risk. The information provided anywhere on this website and accompanying material is for informational purposes only. It should not be considered legal or financial advice."
-          })
         })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: classes.footer,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__.default, {
+        variant: "body2",
+        align: "center",
+        children: "wsbtrends.com \xA9 2021. v1.0.0. This site is not affiliated with Amazon.com Inc., Twitch Interactive, Twitch.tv or any of their partners. Stock trading, Forex trading, or any other form of securities trading is extremely high risk. The information provided anywhere on this website and accompanying material is for informational purposes only. It should not be considered legal or financial advice."
       })
     })]
   });

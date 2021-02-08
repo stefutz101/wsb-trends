@@ -40,8 +40,11 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: grey[50],
         height: 'calc(100vh - 64px)'
     },
-    pageFooter: {
-        paddingTop: theme.spacing(2)
+    footer: {
+        position: "fixed",
+        bottom: 0,
+        textAlign: "center",
+        padding: 24
     }
 }));
 
@@ -212,14 +215,14 @@ function Index() {
                     <Grid item xs={12} lg={2}>
 
                     </Grid>
-                    <Grid item xs={12} lg={12}>
-                        <Typography variant="body2" align="center">
-                            wsbtrends.com © 2021. v1.0.0. This site is not affiliated with Amazon.com Inc., Twitch Interactive, Twitch.tv or any of their partners. Stock trading, Forex trading, or any other form of securities trading is extremely high risk.
-                            The information provided anywhere on this website and accompanying material is for informational purposes only. It should not be considered legal or financial advice.
-                        </Typography> 
-                    </Grid>
                 </Grid>
             </Container>
+            <div className={classes.footer}>
+                <Typography variant="body2" align="center">
+                    wsbtrends.com © 2021. v1.0.0. This site is not affiliated with Amazon.com Inc., Twitch Interactive, Twitch.tv or any of their partners. Stock trading, Forex trading, or any other form of securities trading is extremely high risk.
+                    The information provided anywhere on this website and accompanying material is for informational purposes only. It should not be considered legal or financial advice.
+                </Typography>
+            </div>
         </div>
     );
 }
