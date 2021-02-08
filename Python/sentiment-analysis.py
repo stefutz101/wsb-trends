@@ -98,6 +98,12 @@ for sub in subs:
                                 cmt_auth[word] = [auth]
                                 a_comments[word] = [comment.body]
                                 count += 1    
+    stocks_per_subs = dict(sorted(tickers.items(), key=lambda item: item[1], reverse = True)) #nume stock si valoarea sa
+    top_picks_per_subs = list(stocks_per_subs.keys())[0:picks] #doar nume stocks
+    print("Stocks for subreddit: " + sub + "\n")
+
+    for i in stocks_per_subs:
+        print(i, ' : ', stocks_per_subs[i])
 
 # sorts the dictionary
 symbols = dict(sorted(tickers.items(), key=lambda item: item[1], reverse = True))
@@ -158,7 +164,7 @@ for symbol in picks_sentiment:
 
 #Print values from scores
 for stock, value in scores.items():
-    print(stock, '--')
+#    print(stock, '--')
 
     cursor.execute("""
         UPDATE results SET bearish=%s, neutral=%s, bullish=%s, total=%s WHERE stock=%s
@@ -166,8 +172,8 @@ for stock, value in scores.items():
 
     cnx.commit()
 
-    for key, score in value.items():
-        print(key, ' : ', score)
+#    for key, score in value.items():
+#        print(key, ' : ', score)
 
 cursor.close()
 cnx.close()
