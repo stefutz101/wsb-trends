@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { AppBar, Toolbar, Typography, Button, Container, Grid } from '@material-ui/core';
 import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
-import { blue, lime } from '@material-ui/core/colors';
+import { blue, lime, grey } from '@material-ui/core/colors';
 
 // components
 import CardComponent from '../components/CardComponent';
@@ -36,7 +36,9 @@ const useStyles = makeStyles((theme) => ({
     },
     container: {
         paddingTop: theme.spacing(5),
-        paddingBottom: theme.spacing(5)
+        paddingBottom: theme.spacing(5),
+        backgroundColor: grey[50],
+        height: 'calc(100vh - 64px)'
     },
     pageFooter: {
         paddingTop: theme.spacing(2)
@@ -175,6 +177,7 @@ function Index() {
 
     return (
         <div>
+
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" className={classes.menu}>
@@ -189,17 +192,14 @@ function Index() {
                 </Toolbar>
             </AppBar>
             <Container maxWidth="xl" className={classes.container}>
-
                 <Grid container spacing={5}>
                     <Grid item xs={12} lg={2}>
 
                     </Grid>
-                    
                     <Grid item xs={12} lg={8}>
                         <Typography variant="h3" className={classes.pageTitle}>
                             Text
                         </Typography>
-
                         <Grid container spacing={5}>
                             <Grid item xs={12} md={6}>
                                 <CardComponent title={'Top 10 Most Mentioned Stocks'} canvas_id={'top10'} />
@@ -208,18 +208,17 @@ function Index() {
                                 <CardComponent title={'Sentiment Analysis'} canvas_id={'analysis'} />
                             </Grid>
                         </Grid>
-
-                        <Typography variant="p" className={classes.pageFooter}>
-                            wsbtrends.com © 2021. v1.0.0. This site is not affiliated with Amazon.com Inc., Twitch Interactive, Twitch.tv or any of their partners. Stock trading, Forex trading, or any other form of securities trading is extremely high risk.
-                            The information provided anywhere on this website and accompanying material is for informational purposes only. It should not be considered legal or financial advice.
-                        </Typography>
                     </Grid>
-
                     <Grid item xs={12} lg={2}>
 
                     </Grid>
+                    <Grid item xs={12} lg={12}>
+                        <Typography variant="body2" align="center">
+                            wsbtrends.com © 2021. v1.0.0. This site is not affiliated with Amazon.com Inc., Twitch Interactive, Twitch.tv or any of their partners. Stock trading, Forex trading, or any other form of securities trading is extremely high risk.
+                            The information provided anywhere on this website and accompanying material is for informational purposes only. It should not be considered legal or financial advice.
+                        </Typography> 
+                    </Grid>
                 </Grid>
-
             </Container>
         </div>
     );
