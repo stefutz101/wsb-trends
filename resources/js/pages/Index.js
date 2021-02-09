@@ -222,8 +222,8 @@ function Index() {
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="body2" align="center">
-                            wsbtrends.com © 2021. v1.0.0. This site is not affiliated with Amazon.com Inc., Twitch Interactive, Twitch.tv or any of their partners. Stock trading, Forex trading, or any other form of securities trading is extremely high risk.
-                            The information provided anywhere on this website and accompanying material is for informational purposes only. It should not be considered legal or financial advice.
+                            wsb-trends.uc.r.appspot.com v1.0.0. © 2021
+                            Stock trading, Forex trading, or any other form of securities trading is extremely high risk. The information provided anywhere on this website and accompanying material is for informational purposes only. It should not be considered legal or financial advice.
                         </Typography>
                     </Grid>
                 </Grid>
