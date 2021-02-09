@@ -39,13 +39,13 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function report(Exception $exception)
+    public function report(Throwable $e)
     {
         if (isset($_SERVER['GAE_SERVICE'])) {
             Bootstrap::init();
-            Bootstrap::exceptionHandler($exception);
+            Bootstrap::exceptionHandler($e);
         } else {
-            parent::report($exception);
+            parent::report($e);
         }
     }
 }
