@@ -1,0 +1,4 @@
+cron:
+- description: ""
+  url: /Python/sentiment-analysis
+  schedule: every 60 mins

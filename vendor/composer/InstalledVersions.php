@@ -164,6 +164,15 @@ private static $installed = array (
       ),
       'reference' => 'df7933820090489623ce0be5e85c7e693638e536',
     ),
+    'firebase/php-jwt' => 
+    array (
+      'pretty_version' => 'v5.2.0',
+      'version' => '5.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'feb0e820b8436873675fd3aca04f3728eb2185cb',
+    ),
     'fruitcake/laravel-cors' => 
     array (
       'pretty_version' => 'v2.0.3',
@@ -173,6 +182,78 @@ private static $installed = array (
       ),
       'reference' => '01de0fe5f71c70d1930ee9a80385f9cc28e0f63a',
     ),
+    'google/auth' => 
+    array (
+      'pretty_version' => 'v1.15.0',
+      'version' => '1.15.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b346c07de6613e26443d7b4830e5e1933b830dc4',
+    ),
+    'google/cloud-core' => 
+    array (
+      'pretty_version' => 'v1.41.0',
+      'version' => '1.41.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2e58627e1c4f1417631ba4b0a1098b66ac98665c',
+    ),
+    'google/cloud-error-reporting' => 
+    array (
+      'pretty_version' => 'v0.18.2',
+      'version' => '0.18.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b3c4b2bf968d5b5210b750a37dd87d699dd1dd09',
+    ),
+    'google/cloud-logging' => 
+    array (
+      'pretty_version' => 'v1.21.0',
+      'version' => '1.21.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'bd00f181bb36fcf827e16eece967a76fbd29e00a',
+    ),
+    'google/common-protos' => 
+    array (
+      'pretty_version' => '1.3',
+      'version' => '1.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '535f489ff1c3433c0ea64cd5aa0560f926949ac5',
+    ),
+    'google/gax' => 
+    array (
+      'pretty_version' => '1.7.0',
+      'version' => '1.7.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a2d48062b0ac0433da463a1f7c77ab672bbbfa08',
+    ),
+    'google/grpc-gcp' => 
+    array (
+      'pretty_version' => '0.1.5',
+      'version' => '0.1.5.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'bb9bdbf62f6ae4e73d5209d85b1d0a0b9855ff36',
+    ),
+    'google/protobuf' => 
+    array (
+      'pretty_version' => 'v3.14.0',
+      'version' => '3.14.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '03f132a66f09f96064309e81c5fac8d35b7474e1',
+    ),
     'graham-campbell/result-type' => 
     array (
       'pretty_version' => 'v1.0.1',
@@ -181,6 +262,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '7e279d2cd5d7fbb156ce46daada972355cea27bb',
+    ),
+    'grpc/grpc' => 
+    array (
+      'pretty_version' => '1.35.0',
+      'version' => '1.35.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'cf75367acfcf154331f97d1525f9f46383b7891d',
     ),
     'guzzlehttp/guzzle' => 
     array (
@@ -705,6 +795,15 @@ private static $installed = array (
       ),
       'reference' => 'f661659747f2f87f9e72095bb207bceb0f151cb4',
     ),
+    'psr/cache' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd11b50ad223250cf17b86e38383413f5a6764bf8',
+    ),
     'psr/container' => 
     array (
       'pretty_version' => '1.0.0',
@@ -837,6 +936,15 @@ private static $installed = array (
       array (
         0 => '4.1.1',
       ),
+    ),
+    'rize/uri-template' => 
+    array (
+      'pretty_version' => '0.3.2',
+      'version' => '0.3.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '9e5fdd5c47147aa5adf7f760002ee591ed37b9ca',
     ),
     'sebastian/cli-parser' => 
     array (
