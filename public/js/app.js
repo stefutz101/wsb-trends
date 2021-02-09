@@ -8852,14 +8852,7 @@ var useStyles = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__.default
     container: {
       paddingTop: theme.spacing(5),
       paddingBottom: theme.spacing(5),
-      backgroundColor: _material_ui_core_colors__WEBPACK_IMPORTED_MODULE_10__.default[50],
-      height: 'calc(100vh - 64px)'
-    },
-    footer: {
-      position: "fixed",
-      bottom: 0,
-      textAlign: "center",
-      padding: 24
+      backgroundColor: _material_ui_core_colors__WEBPACK_IMPORTED_MODULE_10__.default[50]
     }
   };
 });
@@ -8877,97 +8870,106 @@ function Index() {
     fetch(API_URL).then(function (res) {
       return res.json();
     }).then(function (result) {
-      var top10, analysis, options, sentiments;
-      top10 = {
-        labels: ['Stocks'],
-        datasets: []
-      };
-      analysis = {
-        labels: [],
-        datasets: []
-      };
-      sentiments = {
-        bearish: {
-          key: 'Bearish',
-          values: [],
-          color: [255, 99, 132]
-        },
-        neutral: {
-          key: 'Neutral',
-          values: [],
-          color: [255, 206, 86]
-        },
-        bullish: {
-          key: 'Bullish',
-          values: [],
-          color: [75, 192, 192]
-        },
-        total: {
-          key: 'Total',
-          values: [],
-          color: [153, 102, 255]
-        }
-      };
-      options = {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      };
-      result.forEach(function (el) {
-        var _random_rgba = random_rgba(),
-            _random_rgba2 = _slicedToArray(_random_rgba, 3),
-            r = _random_rgba2[0],
-            g = _random_rgba2[1],
-            b = _random_rgba2[2]; // 1st chart
+      //Count all subReddits
+      var subs = [];
 
-
-        top10.datasets.push({
-          label: el.stock,
-          data: [el.mentions],
-          backgroundColor: ["rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)")],
-          borderColor: ["rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)")],
-          borderWidth: 1
-        }); // 2nd chart
-
-        analysis.labels.push(el.stock);
-        sentiments.bearish.values.push(el.bearish);
-        sentiments.neutral.values.push(el.neutral);
-        sentiments.bullish.values.push(el.bullish);
-        sentiments.total.values.push(el.total);
-      });
-
-      for (var _i2 = 0, _Object$entries = Object.entries(sentiments); _i2 < _Object$entries.length; _i2++) {
-        var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
-            key = _Object$entries$_i[0],
-            value = _Object$entries$_i[1];
-
-        var _value$color = _slicedToArray(value.color, 3),
-            r = _value$color[0],
-            g = _value$color[1],
-            b = _value$color[2];
-
-        analysis.datasets.push({
-          label: value.key,
-          data: value.values,
-          backgroundColor: ["rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)")],
-          borderColor: ["rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)")],
-          borderWidth: 1
-        });
+      for (var sub in result) {
+        subs.push(sub);
       }
 
-      new (chart_js__WEBPACK_IMPORTED_MODULE_4___default())('top10', {
-        type: 'bar',
-        data: top10,
-        options: options
-      });
-      new (chart_js__WEBPACK_IMPORTED_MODULE_4___default())('analysis', {
-        type: 'bar',
-        data: analysis,
-        options: options
+      subs.forEach(function (sub) {
+        var top10, analysis, options, sentiments;
+        top10 = {
+          labels: ['Stocks'],
+          datasets: []
+        };
+        analysis = {
+          labels: [],
+          datasets: []
+        };
+        sentiments = {
+          bearish: {
+            key: 'Bearish',
+            values: [],
+            color: [255, 99, 132]
+          },
+          neutral: {
+            key: 'Neutral',
+            values: [],
+            color: [255, 206, 86]
+          },
+          bullish: {
+            key: 'Bullish',
+            values: [],
+            color: [75, 192, 192]
+          },
+          total: {
+            key: 'Total',
+            values: [],
+            color: [153, 102, 255]
+          }
+        };
+        options = {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        };
+        result[sub].forEach(function (el) {
+          var _random_rgba = random_rgba(),
+              _random_rgba2 = _slicedToArray(_random_rgba, 3),
+              r = _random_rgba2[0],
+              g = _random_rgba2[1],
+              b = _random_rgba2[2]; // 1st chart
+
+
+          top10.datasets.push({
+            label: el.stock,
+            data: [el.mentions],
+            backgroundColor: ["rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)")],
+            borderColor: ["rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)")],
+            borderWidth: 1
+          }); // 2nd chart
+
+          analysis.labels.push(el.stock);
+          sentiments.bearish.values.push(el.bearish);
+          sentiments.neutral.values.push(el.neutral);
+          sentiments.bullish.values.push(el.bullish);
+          sentiments.total.values.push(el.total);
+        });
+
+        for (var _i2 = 0, _Object$entries = Object.entries(sentiments); _i2 < _Object$entries.length; _i2++) {
+          var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
+              key = _Object$entries$_i[0],
+              value = _Object$entries$_i[1];
+
+          var _value$color = _slicedToArray(value.color, 3),
+              r = _value$color[0],
+              g = _value$color[1],
+              b = _value$color[2];
+
+          analysis.datasets.push({
+            label: value.key,
+            data: value.values,
+            backgroundColor: ["rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.2)")],
+            borderColor: ["rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)"), "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 1)")],
+            borderWidth: 1
+          });
+        }
+
+        new (chart_js__WEBPACK_IMPORTED_MODULE_4___default())("".concat(sub, "_1"), {
+          type: 'bar',
+          data: top10,
+          options: options
+        });
+        new (chart_js__WEBPACK_IMPORTED_MODULE_4___default())("".concat(sub, "_2"), {
+          type: 'bar',
+          data: analysis,
+          options: options
+        });
       });
     }, function (error) {
       alert(error);
@@ -8994,10 +8996,15 @@ function Index() {
           children: "Register"
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__.default, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__.default, {
       maxWidth: "xl",
       className: classes.container,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__.default, {
+      spacing: 5,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__.default, {
+        variant: "h4",
+        className: classes.pageTitle,
+        children: "Top Mentioned Stocks on Reddit"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__.default, {
         container: true,
         spacing: 5,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__.default, {
@@ -9009,9 +9016,9 @@ function Index() {
           xs: 12,
           lg: 8,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__.default, {
-            variant: "h3",
+            variant: "h6",
             className: classes.pageTitle,
-            children: "Text"
+            children: "r/WallStreetsBets"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__.default, {
             container: true,
             spacing: 5,
@@ -9021,7 +9028,7 @@ function Index() {
               md: 6,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_CardComponent__WEBPACK_IMPORTED_MODULE_2__.default, {
                 title: 'Top 10 Most Mentioned Stocks',
-                canvas_id: 'top10'
+                canvas_id: 'wallstreetbets_1'
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__.default, {
               item: true,
@@ -9029,7 +9036,31 @@ function Index() {
               md: 6,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_CardComponent__WEBPACK_IMPORTED_MODULE_2__.default, {
                 title: 'Sentiment Analysis',
-                canvas_id: 'analysis'
+                canvas_id: 'wallstreetbets_2'
+              })
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__.default, {
+            variant: "h6",
+            className: classes.pageTitle,
+            children: "r/Stocks"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__.default, {
+            container: true,
+            spacing: 5,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__.default, {
+              item: true,
+              xs: 12,
+              md: 6,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_CardComponent__WEBPACK_IMPORTED_MODULE_2__.default, {
+                title: 'Top 10 Most Mentioned Stocks',
+                canvas_id: 'stocks_1'
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__.default, {
+              item: true,
+              xs: 12,
+              md: 6,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_CardComponent__WEBPACK_IMPORTED_MODULE_2__.default, {
+                title: 'Sentiment Analysis',
+                canvas_id: 'stocks_2'
               })
             })]
           })]
@@ -9037,15 +9068,16 @@ function Index() {
           item: true,
           xs: 12,
           lg: 2
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__.default, {
+          item: true,
+          xs: 12,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__.default, {
+            variant: "body2",
+            align: "center",
+            children: "wsbtrends.com \xA9 2021. v1.0.0. This site is not affiliated with Amazon.com Inc., Twitch Interactive, Twitch.tv or any of their partners. Stock trading, Forex trading, or any other form of securities trading is extremely high risk. The information provided anywhere on this website and accompanying material is for informational purposes only. It should not be considered legal or financial advice."
+          })
         })]
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      className: classes.footer,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__.default, {
-        variant: "body2",
-        align: "center",
-        children: "wsbtrends.com \xA9 2021. v1.0.0. This site is not affiliated with Amazon.com Inc., Twitch Interactive, Twitch.tv or any of their partners. Stock trading, Forex trading, or any other form of securities trading is extremely high risk. The information provided anywhere on this website and accompanying material is for informational purposes only. It should not be considered legal or financial advice."
-      })
+      })]
     })]
   });
 }

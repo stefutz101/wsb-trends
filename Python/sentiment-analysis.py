@@ -97,103 +97,58 @@ for sub in subs:
                                 tickers[word] = 1
                                 cmt_auth[word] = [auth]
                                 a_comments[word] = [comment.body]
-                                count += 1    
+                                count += 1
+
+    # sorts the dictionary
     stocks_per_subs = dict(sorted(tickers.items(), key=lambda item: item[1], reverse = True)) #nume stock si valoarea sa
     top_picks_per_subs = list(stocks_per_subs.keys())[0:picks] #doar nume stocks
-    print("Stocks for subreddit: " + sub + "\n")
+    # print("Stocks for subreddit: " + sub + "\n")
 
-    for i in stocks_per_subs:
-        print(i, ' : ', stocks_per_subs[i])
+    for i in top_picks_per_subs:
+        # print(i, ' : ', stocks_per_subs[i])
 
-# sorts the dictionary
-symbols = dict(sorted(tickers.items(), key=lambda item: item[1], reverse = True))
-top_picks = list(symbols.keys())[0:picks]
+        cursor.execute("""
+            INSERT INTO results (stock, mentions, source)
+            VALUES (%s, %s, %s)
+        """, (i, stocks_per_subs[i], sub))
 
-# print top picks
-# time = (time.time() - start_time)
-# print("It took {t:.2f} seconds to analyze {c} comments in {p} posts in {s} subreddits.\n".format(t=time, c=c_analyzed, p=posts, s=len(subs)))
-# print("Posts analyzed saved in titles")
-#for i in titles: print(i)  # prints the title of the posts analyzed
+        cnx.commit()
 
-# print(f"\n{picks} most mentioned picks: ")
+    # Applying Sentiment Analysis
+    scores, s = {}, {}
+    vader = SentimentIntensityAnalyzer()
+    # adding custom words from data.py 
+    vader.lexicon.update(new_words)
 
-# times = []
-# top = []
-for i in top_picks:
+    picks_sentiment = list(stocks_per_subs.keys())[0:picks_ayz]
+    for symbol in picks_sentiment:
+        stock_comments = a_comments[symbol]
+        for cmnt in stock_comments:
+            score = vader.polarity_scores(cmnt)
+            if symbol in s:
+                s[symbol][cmnt] = score
+            else:
+                s[symbol] = {cmnt:score}      
+            if symbol in scores:
+                for key, _ in score.items():
+                    scores[symbol][key] += score[key]
+            else:
+                scores[symbol] = score
+                
+        # calculating avg.
+        for key in score:
+            scores[symbol][key] = scores[symbol][key] / stocks_per_subs[symbol]
+            scores[symbol][key]  = "{pol:.3f}".format(pol=scores[symbol][key])
 
-    cursor.execute("""
-        INSERT INTO results (stock, mentions)
-        VALUES (%s, %s)
-    """, (i, symbols[i]))
+    #Print values from scores
+    for stock, value in scores.items():
+    #    print(stock, '--')
 
-    cnx.commit()
+        cursor.execute("""
+            UPDATE results SET bearish=%s, neutral=%s, bullish=%s, total=%s WHERE stock=%s
+        """, (value['neg'], value['neu'], value['pos'], value['compound'], stock))
 
-
-    # print(f"{i}: {symbols[i]}")
-
-    # times.append(symbols[i])
-    # top.append(f"{i}: {symbols[i]}")
-   
-    
-# Applying Sentiment Analysis
-scores, s = {}, {}
-vader = SentimentIntensityAnalyzer()
-# adding custom words from data.py 
-vader.lexicon.update(new_words)
-
-picks_sentiment = list(symbols.keys())[0:picks_ayz]
-for symbol in picks_sentiment:
-    stock_comments = a_comments[symbol]
-    for cmnt in stock_comments:
-        score = vader.polarity_scores(cmnt)
-        if symbol in s:
-            s[symbol][cmnt] = score
-        else:
-            s[symbol] = {cmnt:score}      
-        if symbol in scores:
-            for key, _ in score.items():
-                scores[symbol][key] += score[key]
-        else:
-            scores[symbol] = score
-            
-    # calculating avg.
-    for key in score:
-        scores[symbol][key] = scores[symbol][key] / symbols[symbol]
-        scores[symbol][key]  = "{pol:.3f}".format(pol=scores[symbol][key])
-
-
-#Print values from scores
-for stock, value in scores.items():
-#    print(stock, '--')
-
-    cursor.execute("""
-        UPDATE results SET bearish=%s, neutral=%s, bullish=%s, total=%s WHERE stock=%s
-    """, (value['neg'], value['neu'], value['pos'], value['compound'], stock))
-
-    cnx.commit()
-
-#    for key, score in value.items():
-#        print(key, ' : ', score)
+        cnx.commit()
 
 cursor.close()
 cnx.close()
-
-#printing sentiment analysis 
-#print(f"\nSentiment analysis of top {picks_ayz} picks:")
-#df = pd.DataFrame(scores)
-#df.index = ['Bearish', 'Neutral', 'Bullish', 'Total/Compound']
-#df = df.T
-#print(df)
-
-# Date Visualization
-# most mentioned picks    
-# squarify.plot(sizes=times, label=top, alpha=.7 )
-# plt.axis('off')
-# plt.title(f"{picks} most mentioned picks")
-# plt.show()
-
-# Sentiment analysis
-# df = df.astype(float)
-# colors = ['red', 'springgreen', 'forestgreen', 'coral']
-# df.plot(kind = 'bar', color=colors, title=f"Sentiment analysis of top {picks_ayz} picks:")
-# plt.show()

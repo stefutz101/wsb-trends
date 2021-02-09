@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Results;
+use DB;
 
 class ResultsController extends Controller
 {
@@ -15,7 +16,7 @@ class ResultsController extends Controller
      */
     public function index()
     {
-        $results = Results::all();
+        $results = Results::all()->groupBy('source');
 
         return response()->json($results, 200);
     }

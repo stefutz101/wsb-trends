@@ -22,7 +22,7 @@ class CreateResultsTable extends Migration
             $table->double('neutral', 4, 3)->default(0);
             $table->double('bullish', 4, 3)->default(0);
             $table->double('total', 4, 3)->default(0);
-            $table->timestamps();
+            $table->timestamp('created_at', 0)->useCurrent();
         });
     }
 
