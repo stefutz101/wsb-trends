@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-import { AppBar, Toolbar, Typography, Button, Container, Grid } from '@material-ui/core';
-import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
-import { blue, lime, grey } from '@material-ui/core/colors';
+import { AppBar, Toolbar, Typography, Container, Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { grey } from '@material-ui/core/colors';
 
 // components
 import CardComponent from '../components/CardComponent';
@@ -12,17 +12,6 @@ import CardComponent from '../components/CardComponent';
 import 'fontsource-roboto';
 
 import Chart from 'chart.js';
-
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: blue[500],
-        },
-        secondary: {
-            main: lime[500],
-        },
-    },
-});
 
 const useStyles = makeStyles((theme) => ({
     menu: {
@@ -33,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     },
     pageTitle: {
         paddingBottom: theme.spacing(2)
+    },
+    pageSubTitle: {
+        paddingBottom: theme.spacing(1)
     },
     container: {
         paddingTop: theme.spacing(5),
@@ -186,25 +178,21 @@ function Index() {
                     <Typography variant="h6" className={classes.menu}>
                         WSB Trends
                     </Typography>
-                    <Button color="primary" variant="contained" href="/login" className={classes.loginButton}>
-                        Login
-                    </Button>
-                    <Button color="secondary" variant="contained" href="/register">
-                        Register
-                    </Button>
                 </Toolbar>
             </AppBar>
             <Container maxWidth="xl" className={classes.container} spacing={5}>
-                <Typography variant="h4" className={classes.pageTitle}>
+
+                <Typography variant="h4" align="center" className={classes.pageTitle}>
                     Top Mentioned Stocks on Reddit
                 </Typography>
+
                 <Grid container spacing={5}>
                     <Grid item xs={12} lg={2}>
 
                     </Grid>
                     <Grid item xs={12} lg={8}>
                         
-                        <Typography variant="h6" className={classes.pageTitle}>
+                        <Typography variant="h6" className={classes.pageSubTitle}>
                             r/WallStreetsBets
                         </Typography>
                         <Grid container spacing={5}>
@@ -216,7 +204,7 @@ function Index() {
                             </Grid>
                         </Grid>
 
-                        <Typography variant="h6" className={classes.pageTitle}>
+                        <Typography variant="h6" className={classes.pageSubTitle}>
                             r/Stocks
                         </Typography>
                         <Grid container spacing={5}>
