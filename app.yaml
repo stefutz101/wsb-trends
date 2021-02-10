@@ -3,6 +3,7 @@ runtime: php74
 env_variables:
   LOG_CHANNEL: stackdriver
   APP_KEY: base64:4UvuWvuHiNxND7rSFAa4W1/iLjVErWL81Kt84PYY/UI=
+  APP_DEBUG: true
   APP_STORAGE: /tmp
   VIEW_COMPILED_PATH: /tmp
   CACHE_DRIVER: database
