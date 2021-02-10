@@ -12,3 +12,8 @@ env_variables:
   DB_USERNAME: root
   DB_PASSWORD: 5YxXd6bE9qmP
   DB_SOCKET: "/cloudsql/wsb-trends:us-central1:wsb-trends"
+
+handlers:
+- url: /(.*\.(gif|png|jpg|css|js))$
+  static_files: public/\1
+  upload: public/.*\.(gif|png|jpg|css|js)$
