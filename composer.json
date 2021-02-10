@@ -16,8 +16,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.2",
-        "facade/ignition": "^2.5"
+        "laravel/ui": "^3.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
