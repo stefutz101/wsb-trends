@@ -39,7 +39,8 @@ class cronjob extends Command
      */
     public function handle()
     {
-        $process = new Process(['python', '/python/sentiment-analysis.py']);
-        $process->run();
+        $output = shell_exec('.\python\env\Scripts\activate && py python\sentiment-analysis.py');
+        
+        Log::info($output);
     }
 }
