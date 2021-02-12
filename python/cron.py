@@ -1,9 +1,5 @@
 import praw
 from data import *
-import time
-import pandas as pd
-import matplotlib.pyplot as plt
-import squarify
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import nltk
 import config
