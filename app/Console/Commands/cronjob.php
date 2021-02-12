@@ -38,8 +38,8 @@ class cronjob extends Command
      */
     public function handle()
     {
-        // $output = shell_exec('source python/env/bin/activate && python python/sentiment-analysis.py');
-        $output = shell_exec('python python/sentiment-analysis.py');
+        // $output = shell_exec('source python/env/bin/activate && python python/cron.py');
+        $output = shell_exec('python python/cron.py');
         
         Log::emergency($output);
     }
