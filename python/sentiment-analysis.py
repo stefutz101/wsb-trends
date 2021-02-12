@@ -152,3 +152,5 @@ for sub in subs:
 
 cursor.close()
 cnx.close()
+
+print('Done!')
