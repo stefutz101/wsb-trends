@@ -17,7 +17,7 @@ reddit = praw.Reddit(
 )
 
 cnx = mysql.connector.connect(user=config.DB_USER, password=config.DB_PASS,
-                              host=config.DB_HOST,
+                              unix_socket=config.UNIX_SOCKET,
                               database=config.DB_NAME)
 cursor = cnx.cursor()
 
