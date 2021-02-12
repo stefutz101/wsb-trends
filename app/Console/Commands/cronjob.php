@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 class cronjob extends Command
 {
@@ -39,8 +41,21 @@ class cronjob extends Command
     public function handle()
     {
         // $output = shell_exec('source python/env/bin/activate && python python/cron.py');
-        $output = shell_exec('python python/cron.py');
-        
-        Log::emergency($output);
+        Log::emergency('cron');
+        Log::emergency('cron');
+        Log::emergency('cron');
+        Log::emergency('cron');
+
+        $process = new Process(['python', 'python/cron.py']);
+        $process->run();
+
+        // executes after the command finishes
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        Log::emergency(
+            $process->getOutput()
+        );
     }
 }

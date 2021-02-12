@@ -24,6 +24,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        Log::emergency('schedule');
+        Log::emergency('schedule');
+        Log::emergency('schedule');
+        Log::emergency('schedule');
+        
+        $schedule->exec('python python/cron.py')->daily();
         $schedule->command('cronjob')->hourly();
     }
 
