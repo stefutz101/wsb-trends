@@ -5,7 +5,7 @@
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/>
 
         <style>body { margin: 0; }</style>
-        <title>Laravel</title>
+        <title>WSB Trends</title>
 
         <!-- Google Adsense -->
         <script data-ad-client="ca-pub-6834170928313129" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

@@ -3,8 +3,13 @@ runtime: php74
 env_variables:
   LOG_CHANNEL: stackdriver
   APP_KEY: base64:4UvuWvuHiNxND7rSFAa4W1/iLjVErWL81Kt84PYY/UI=
+  APP_NAME: WSB Trends
   APP_STORAGE: /tmp
   VIEW_COMPILED_PATH: /tmp
+  APP_SERVICES_CACHE: /tmp/services.php
+  APP_PACKAGES_CACHE: /tmp/packages.php
+  APP_CONFIG_CACHE: /tmp/config.php
+  APP_ROUTES_CACHE: /tmp/routes.php
   CACHE_DRIVER: database
   SESSION_DRIVER: database
   DB_DATABASE: website
