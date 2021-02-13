@@ -21,7 +21,7 @@ class Cronjob extends Command
      *
      * @var string
      */
-    protected $description = 'Run a Python script every 60 mins';
+    protected $description = 'Run a Python script every 30 mins';
 
     /**
      * Create a new command instance.
@@ -40,7 +40,7 @@ class Cronjob extends Command
      */
     public function handle()
     {
-        $process = new Process(['python', 'python/cron.py']);
+        $process = new Process(['python', '/python/cron.py']);
         $process->run();
 
         // executes after the command finishes
