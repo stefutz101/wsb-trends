@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -13,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\Cronjob::class,
     ];
 
     /**
@@ -24,13 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        Log::emergency('schedule');
-        Log::emergency('schedule');
-        Log::emergency('schedule');
-        Log::emergency('schedule');
-        
-        $schedule->exec('python python/cron.py')->daily();
-        $schedule->command('cronjob')->hourly();
+        //
     }
 
     /**
