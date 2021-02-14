@@ -40,7 +40,7 @@ class Cronjob extends Command
      */
     public function handle()
     {
-        $process = new Process(["py", "python/cron.py"]);
+        $process = new Process(["python3", "python/cron.py"]);
         $process->run();
 
         // executes after the command finishes
