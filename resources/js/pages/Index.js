@@ -216,6 +216,42 @@ function Index() {
                             </Grid>
                         </Grid>
 
+                        <Typography variant="h6" className={classes.pageSubTitle}>
+                            r/Investing
+                        </Typography>
+                        <Grid container spacing={5}>
+                            <Grid item xs={12} md={6}>
+                                <CardComponent title={'Top 10 Most Mentioned Stocks'} canvas_id={'investing_1'} />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <CardComponent title={'Sentiment Analysis'} canvas_id={'investing_2'} />
+                            </Grid>
+                        </Grid>
+
+                        <Typography variant="h6" className={classes.pageSubTitle}>
+                            r/StockMarket
+                        </Typography>
+                        <Grid container spacing={5}>
+                            <Grid item xs={12} md={6}>
+                                <CardComponent title={'Top 10 Most Mentioned Stocks'} canvas_id={'stockmarket_1'} />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <CardComponent title={'Sentiment Analysis'} canvas_id={'stockmarket_2'} />
+                            </Grid>
+                        </Grid>
+
+                        <Typography variant="h6" className={classes.pageSubTitle}>
+                            r/PennyStocks
+                        </Typography>
+                        <Grid container spacing={5}>
+                            <Grid item xs={12} md={6}>
+                                <CardComponent title={'Top 10 Most Mentioned Stocks'} canvas_id={'pennystocks_1'} />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <CardComponent title={'Sentiment Analysis'} canvas_id={'pennystocks_2'} />
+                            </Grid>
+                        </Grid>
+
                     </Grid>
                     <Grid item xs={12} lg={2}>
 
