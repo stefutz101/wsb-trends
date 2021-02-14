@@ -18,10 +18,6 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('scheduler', function () {
-    Artisan::call('schedule:run');
-})->middleware('app-engine-cron');
-
 //Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
