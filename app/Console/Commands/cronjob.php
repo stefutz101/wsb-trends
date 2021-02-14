@@ -3,9 +3,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
+use Illuminate\Support\Facades\Log;
 
 class Cronjob extends Command
 {
@@ -40,7 +40,7 @@ class Cronjob extends Command
      */
     public function handle()
     {
-        $process = new Process(['python', '/python/cron.py']);
+        $process = new Process(["py", "python/cron.py"]);
         $process->run();
 
         // executes after the command finishes

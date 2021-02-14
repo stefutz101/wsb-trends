@@ -18,7 +18,9 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('scheduler', [ScheduleController::class, 'handle'])->middleware('app-engine-cron');
+Route::get('scheduler', function () {
+    Artisan::call('schedule:run');
+})->middleware('app-engine-cron');
 
 //Auth::routes();
 

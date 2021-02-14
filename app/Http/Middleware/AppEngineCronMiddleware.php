@@ -16,9 +16,9 @@ class AppEngineCronMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$request->hasHeader('X-Appengine-Cron')) {
+        /*if (!$request->hasHeader('X-Appengine-Cron')) {
             return response()->json(trans('auth.unauthorized'), 401);
-        }
+        }*/
         
         return $next($request);
     }
