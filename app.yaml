@@ -18,6 +18,6 @@ env_variables:
   DB_SOCKET: "/cloudsql/wsb-trends:us-central1:wsb-trends"
 
 handlers:
-- url: /(.*\.(gif|png|jpg|css|js))$
+- url: /(.*\.(gif|png|jpg|css|js|woff|woff2))$
   static_files: public/\1
-  upload: public/.*\.(gif|png|jpg|css|js)$
+  upload: public/.*\.(gif|png|jpg|css|js|woff|woff2)$
